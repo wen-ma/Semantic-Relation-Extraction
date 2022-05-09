@@ -1,0 +1,69 @@
+ # webanno.custom.Entity | NC # webanno.custom.SemanticRelation | SemRelation | AttachTo=webanno.custom.Entity
+#id=1
+#text=The vertebral column , also known as the backbone or spine , is a bony skeletal structure found in vertebrates . It is formed from individual bones called vertebrae ( singular : vertebra ) , which houses the spinal canal , a cavity that encloses and protects the spinal cord 
+1-1	The	O	_	_	
+1-2	vertebral	B-NC	Holonym|Hypernym	1-20|1-17	
+1-3	column	I-NC|B-NC	_	_	
+1-4	,	O	_	_	
+1-5	also	O	_	_	
+1-6	known	O	_	_	
+1-7	as	O	_	_	
+1-8	the	O	_	_	
+1-9	backbone	B-NC	Synonym	1-2	
+1-10	or	O	_	_	
+1-11	spine	B-NC	Synonym	1-2	
+1-12	,	O	_	_	
+1-13	is	O	_	_	
+1-14	a	O	_	_	
+1-15	bony	O	_	_	
+1-16	skeletal	O	_	_	
+1-17	structure	B-NC	_	_	
+1-18	found	O	_	_	
+1-19	in	O	_	_	
+1-20	vertebrates	B-NC	_	_	
+1-21	.	O	_	_	
+1-22	It	O	_	_	
+1-23	is	O	_	_	
+1-24	formed	O	_	_	
+1-25	from	O	_	_	
+1-26	individual	O	_	_	
+1-27	bones	B-NC	Holonym|Holonym	1-2|1-20	
+1-28	called	O	_	_	
+1-29	vertebrae	B-NC	Hypernym	1-27	
+1-30	(	O	_	_	
+1-31	singular	O	_	_	
+1-32	:	O	_	_	
+1-33	vertebra	B-NC	_	_	
+1-34	)	O	_	_	
+1-35	,	O	_	_	
+1-36	which	O	_	_	
+1-37	houses	O	_	_	
+1-38	the	O	_	_	
+1-39	spinal	B-NC	Holonym|Hypernym	1-2|1-43	
+1-40	canal	I-NC|B-NC	_	_	
+1-41	,	O	_	_	
+1-42	a	O	_	_	
+1-43	cavity	B-NC	_	_	
+1-44	that	O	_	_	
+1-45	encloses	O	_	_	
+1-46	and	O	_	_	
+1-47	protects	O	_	_	
+1-48	the	O	_	_	
+1-49	spinal	B-NC	Holonym	1-39	
+1-50	cord	I-NC|B-NC	_	_	
+
+#id=2
+#text=There about 50,000 species of animals on Earth that have a vertebral column 
+2-1	There	O	_	_	
+2-2	about	O	_	_	
+2-3	50,000	O	_	_	
+2-4	species	B-NC	_	_	
+2-5	of	O	_	_	
+2-6	animals	B-NC	Hypernym	2-4	
+2-7	on	O	_	_	
+2-8	Earth	B-NC	_	_	
+2-9	that	O	_	_	
+2-10	have	O	_	_	
+2-11	a	O	_	_	
+2-12	vertebral	B-NC	Holonym	2-4	
+2-13	column	I-NC|B-NC	_	_	

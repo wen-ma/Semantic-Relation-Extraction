@@ -1,0 +1,80 @@
+ # webanno.custom.Entity | NC # webanno.custom.SemanticRelation | SemRelation | AttachTo=webanno.custom.Entity
+#id=1
+#text=Die Hose ist ein Kleidungsstück , das zur Verhüllung und Wärmung von Gesäß , Geschlechtsteilen und Beinen dient . Sie ist neben dem Rock ein Beinkleid
+1-1	Die	O	_	_	
+1-2	Hose	B-NC	Hypernym	1-5	
+1-3	ist	O	_	_	
+1-4	ein	O	_	_	
+1-5	Kleidungsstück	B-NC	_	_	
+1-6	,	O	_	_	
+1-7	das	O	_	_	
+1-8	zur	O	_	_	
+1-9	Verhüllung	B-NC	_	_	
+1-10	und	O	_	_	
+1-11	Wärmung	B-NC	_	_	
+1-12	von	O	_	_	
+1-13	Gesäß	B-NC	_	_	
+1-14	,	O	_	_	
+1-15	Geschlechtsteilen	B-NC	Co-Hyponym	1-13	
+1-16	und	O	_	_	
+1-17	Beinen	B-NC	Co-Hyponym	1-13	
+1-18	dient	O	_	_	
+1-19	.	O	_	_	
+1-20	Sie	O	_	_	
+1-21	ist	O	_	_	
+1-22	neben	O	_	_	
+1-23	dem	O	_	_	
+1-24	Rock	B-NC	Hypernym	1-26	
+1-25	ein	O	_	_	
+1-26	Beinkleid	B-NC	Hypernym	1-5	
+
+#id=2
+#text=Hosen werden je nach Schichtlage in Kategorien unterteilt : Unterhosen , Oberhosen und als extra Kälte- oder Regenschutz auch Überhosen . Damit die Hose besser sitzt , können auch ein Gürtel oder Hosenträger verwendet werden . Manche Hosen haben Verstellmöglichkeiten am Bund oder Beinabschluss oder abzippbare Beine
+2-1	Hosen	B-NC	_	_	
+2-2	werden	O	_	_	
+2-3	je	O	_	_	
+2-4	nach	O	_	_	
+2-5	Schichtlage	B-NC	_	_	
+2-6	in	O	_	_	
+2-7	Kategorien	B-NC	_	_	
+2-8	unterteilt	O	_	_	
+2-9	:	O	_	_	
+2-10	Unterhosen	B-NC	Hypernym	2-1	
+2-11	,	O	_	_	
+2-12	Oberhosen	B-NC	Hypernym	2-1	
+2-13	und	O	_	_	
+2-14	als	O	_	_	
+2-15	extra	O	_	_	
+2-16	Kälte-	B-NCpart	_	_	
+2-17	oder	O	_	_	
+2-18	Regenschutz	B-NC	_	_	
+2-19	auch	O	_	_	
+2-20	Überhosen	B-NC	Hypernym|Hypernym|Hypernym	2-16|2-18|2-24	
+2-21	.	O	_	_	
+2-22	Damit	O	_	_	
+2-23	die	O	_	_	
+2-24	Hose	B-NC	_	_	
+2-25	besser	O	_	_	
+2-26	sitzt	O	_	_	
+2-27	,	O	_	_	
+2-28	können	O	_	_	
+2-29	auch	O	_	_	
+2-30	ein	O	_	_	
+2-31	Gürtel	B-NC	_	_	
+2-32	oder	O	_	_	
+2-33	Hosenträger	B-NC	Co-Hyponym	2-31	
+2-34	verwendet	O	_	_	
+2-35	werden	O	_	_	
+2-36	.	O	_	_	
+2-37	Manche	O	_	_	
+2-38	Hosen	B-NC	_	_	
+2-39	haben	O	_	_	
+2-40	Verstellmöglichkeiten	B-NC	_	_	
+2-41	am	O	_	_	
+2-42	Bund	B-NC	Holonym	2-38	
+2-43	oder	O	_	_	
+2-44	Beinabschluss	B-NC	Holonym|Holonym	2-38|2-47	
+2-45	oder	O	_	_	
+2-46	abzippbare	O	_	_	
+2-47	Beine	B-NC	Holonym	2-38	
+

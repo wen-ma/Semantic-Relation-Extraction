@@ -1,0 +1,77 @@
+ # webanno.custom.Entity | NC # webanno.custom.SemanticRelation | SemRelation | AttachTo=webanno.custom.Entity
+#id=1
+#text=Malus ( /ˈmeɪləs/[3 ] or /ˈmæləs/ ) , apple , is a genus of about 30 – 55 species[4 ] of small deciduous trees or shrubs in the family Rosaceae , including the domesticated orchard apple ( M. domestica ) . The other species are generally known as crabapples , crab apples , crabs , or wild apples
+1-1	Malus	B-NC	_	_	
+1-2	(	O	_	_	
+1-3	/ˈmeɪləs/[3	B-NC	_	_	
+1-4	]	O	_	_	
+1-5	or	O	_	_	
+1-6	/ˈmæləs/	O	_	_	
+1-7	)	O	_	_	
+1-8	,	O	_	_	
+1-9	apple	B-NC	Holonym|Holonym	1-26|1-24	
+1-10	,	O	_	_	
+1-11	is	O	_	_	
+1-12	a	O	_	_	
+1-13	genus	B-NC	Hypernym	1-29	
+1-14	of	O	_	_	
+1-15	about	O	_	_	
+1-16	30	O	_	_	
+1-17	–	B-NC	_	_	
+1-18	55	O	_	_	
+1-19	species[4	B-NC	Hypernym	1-13	
+1-20	]	O	_	_	
+1-21	of	O	_	_	
+1-22	small	O	_	_	
+1-23	deciduous	O	_	_	
+1-24	trees	B-NC	_	_	
+1-25	or	O	_	_	
+1-26	shrubs	B-NC	Co-Hyponym	1-24	
+1-27	in	O	_	_	
+1-28	the	O	_	_	
+1-29	family	B-NC	_	_	
+1-30	Rosaceae	B-NC	_	_	
+1-31	,	O	_	_	
+1-32	including	O	_	_	
+1-33	the	O	_	_	
+1-34	domesticated	O	_	_	
+1-35	orchard	B-NC|B-NC	Hypernym	1-9	
+1-36	apple	I-NC|B-NC	_	_	
+1-37	(	O	_	_	
+1-38	M.	B-NC	_	_	
+1-39	domestica	B-NC	_	_	
+1-40	)	O	_	_	
+1-41	.	O	_	_	
+1-42	The	O	_	_	
+1-43	other	O	_	_	
+1-44	species	B-NC	_	_	
+1-45	are	O	_	_	
+1-46	generally	O	_	_	
+1-47	known	O	_	_	
+1-48	as	O	_	_	
+1-49	crabapples	B-NC	Hypernym	1-9	
+1-50	,	O	_	_	
+1-51	crab	B-NC|B-NC	Hypernym	1-9	
+1-52	apples	I-NC|B-NC	_	_	
+1-53	,	O	_	_	
+1-54	crabs	B-NC	Hypernym	1-9	
+1-55	,	O	_	_	
+1-56	or	O	_	_	
+1-57	wild	B-NC	Hypernym	1-9	
+1-58	apples	I-NC|B-NC	_	_	
+
+#id=2
+#text=The genus is native to the temperate zone of the Northern Hemisphere
+2-1	The	O	_	_	
+2-2	genus	B-NC	_	_	
+2-3	is	O	_	_	
+2-4	native	O	_	_	
+2-5	to	O	_	_	
+2-6	the	O	_	_	
+2-7	temperate	O	_	_	
+2-8	zone	B-NC	_	_	
+2-9	of	O	_	_	
+2-10	the	O	_	_	
+2-11	Northern	B-NC	_	_	
+2-12	Hemisphere	B-NC	_	_	
+

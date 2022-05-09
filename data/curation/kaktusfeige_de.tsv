@@ -1,0 +1,53 @@
+ # webanno.custom.Entity | NC # webanno.custom.SemanticRelation | SemRelation | AttachTo=webanno.custom.Entity
+#id=1
+#text=Opuntia ficus-indica ist eine Pflanzenart in der Gattung der Opuntien ( Opuntia ) aus der Familie der Kakteengewächse ( Cactaceae ) . Das Artepitheton ficus-indica bedeutet indische Feige . Die Früchte sind essbar und werden Kaktusfeigen genannt . Die jungen Blätter sind ebenfalls essbar und gehören zur mexikanischen Standardküche
+1-1	Opuntia	B-NC	Hypernym	1-5	
+1-2	ficus-indica	B-NC	_	_	
+1-3	ist	O	_	_	
+1-4	eine	O	_	_	
+1-5	Pflanzenart	B-NC	Hypernym	1-16	
+1-6	in	O	_	_	
+1-7	der	O	_	_	
+1-8	Gattung	B-NC	Hypernym	1-16	
+1-9	der	O	_	_	
+1-10	Opuntien	B-NC	_	_	
+1-11	(	O	_	_	
+1-12	Opuntia	B-NC	Synonym	1-10	
+1-13	)	O	_	_	
+1-14	aus	O	_	_	
+1-15	der	O	_	_	
+1-16	Familie	B-NC	_	_	
+1-17	der	O	_	_	
+1-18	Kakteengewächse	B-NC	_	_	
+1-19	(	O	_	_	
+1-20	Cactaceae	B-NC	_	_	
+1-21	)	O	_	_	
+1-22	.	O	_	_	
+1-23	Das	O	_	_	
+1-24	Artepitheton	B-NC	_	_	
+1-25	ficus-indica	B-NC	_	_	
+1-26	bedeutet	O	_	_	
+1-27	indische	O	_	_	
+1-28	Feige	B-NC	Hypernym	1-31	
+1-29	.	O	_	_	
+1-30	Die	O	_	_	
+1-31	Früchte	B-NC	_	_	
+1-32	sind	O	_	_	
+1-33	essbar	O	_	_	
+1-34	und	O	_	_	
+1-35	werden	O	_	_	
+1-36	Kaktusfeigen	B-NC	Hypernym	1-31	
+1-37	genannt	O	_	_	
+1-38	.	O	_	_	
+1-39	Die	O	_	_	
+1-40	jungen	O	_	_	
+1-41	Blätter	B-NC	Holonym	1-1	
+1-42	sind	O	_	_	
+1-43	ebenfalls	O	_	_	
+1-44	essbar	O	_	_	
+1-45	und	O	_	_	
+1-46	gehören	O	_	_	
+1-47	zur	O	_	_	
+1-48	mexikanischen	O	_	_	
+1-49	Standardküche	B-NC	_	_	
+
