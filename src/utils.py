@@ -60,9 +60,17 @@ log_file.info(f"executive dir: {os.getcwd()}")
 """
 Function to read and write data
 """
+
+
 def read_json(file): return json.load(open(file))
+
+
 def read_jsonl(file): return [json.loads(line) for line in open(file).readlines()]
+
+
 def write_json(obj, file): json.dump(obj, open(file, "w"))
+
+
 def w2f(file, str):
     with open(file, "a") as f:
         f.write(str + "\n")
@@ -300,11 +308,11 @@ for fold_round in range(10):
     log_file.info(f"*****fold_round:{fold_round} Running train *****")
     log_file.info(f"*****train_data_length:{len(train_data_list)}, dev_data_length:{len(dev_data_list)}*****")
     train_dataset = InputFeatures(data_list=train_data_list, rel_dir=f"./data/{args.dataset}/rel_label.json",
-                                    tokenizer=tokenizer, maxlen=512, with_labels=True)
+                                  tokenizer=tokenizer, maxlen=512, with_labels=True)
     train_loader = DataLoader(train_dataset, batch_size=args.batch_size, shuffle=True)
     if args.do_eval:
         dev_dataset = InputFeatures(data_list=dev_data_list, rel_dir=f"./data/{args.dataset}/rel_label.json",
-                                      tokenizer=tokenizer, maxlen=512, with_labels=True)
+                                    tokenizer=tokenizer, maxlen=512, with_labels=True)
         dev_loader = DataLoader(dev_dataset, batch_size=1, shuffle=True)
         eval_acc_stack = []
     device = torch.device("cuda" if torch.cuda.is_available() and not args.no_cuda else "cpu")
@@ -322,12 +330,13 @@ for fold_round in range(10):
     model = model.to(device)
     for epoch in range(epochs):
         log_file.info(f"Epoch: {epoch}")
-        for i,batch in enumerate(train_loader):
+        for i, batch in enumerate(train_loader):
             model.train()
             optimizer.zero_grad()
             batch = tuple(t.to(device) for t in batch)
             input_ids, attention_masks, token_type_ids, labels, sub_idx, obj_idx = batch
-            loss = model(input_ids=input_ids, attention_mask=attention_masks, token_type_ids=token_type_ids, labels=labels, sub_idx=sub_idx, obj_idx=obj_idx)
+            loss = model(input_ids=input_ids, attention_mask=attention_masks, token_type_ids=token_type_ids,
+                         labels=labels, sub_idx=sub_idx, obj_idx=obj_idx)
             loss = loss.mean()
             loss.backward()
             optimizer.step()
@@ -335,45 +344,47 @@ for fold_round in range(10):
             running_loss += loss.item()
             if i % batch_print == 0 and i != 0:
                 count += 1
-                log_file.info(f"Epoch:{epoch}/{args.epoch},Batch:{i},Loss:{running_loss/batch_print}")
-                loss_stack.append(running_loss/batch_print)
+                log_file.info(f"Epoch:{epoch}/{args.epoch},Batch:{i},Loss:{running_loss / batch_print}")
+                loss_stack.append(running_loss / batch_print)
                 running_loss = 0.0
         if args.do_eval:
             log_file.info(f"*****Epoch:{epoch}/{args.epoch} Running eval *****")
             right = 0
             total = 0
-            for i,batch in tqdm(enumerate(dev_loader)):
+            for i, batch in tqdm(enumerate(dev_loader)):
                 model.eval()
                 with torch.no_grad():
                     batch = tuple(t.to(device) for t in batch)
                     input_ids, attention_masks, token_type_ids, labels, sub_idx, obj_idx = batch
-                    logits = model(input_ids=input_ids, attention_mask=attention_masks, token_type_ids=token_type_ids, sub_idx=sub_idx, obj_idx=obj_idx)
+                    logits = model(input_ids=input_ids, attention_mask=attention_masks, token_type_ids=token_type_ids,
+                                   sub_idx=sub_idx, obj_idx=obj_idx)
                     if int(logits.argmax(dim=1)) == int(labels):
                         right += 1
                     total += 1
-            eval_acc = right/total
+            eval_acc = right / total
             log_file.info(f"Eval Accuracy: {eval_acc}")
             if not eval_acc_stack:
                 eval_acc_stack.append(eval_acc)
-                save_trained_model(f"./models/{args.saved_model}", args.saved_model+f"_fold_{fold_round}", model)
+                save_trained_model(f"./models/{args.saved_model}", args.saved_model + f"_fold_{fold_round}", model)
                 log_file.info(f"{args.saved_model}_fold_{fold_round} model saved")
             if eval_acc > max(eval_acc_stack):
                 log_file.info(f"New Best eval accuracy: {eval_acc}, old best eval accuracy: {max(eval_acc_stack)}")
-                save_trained_model(f"./models/{args.saved_model}", args.saved_model+f"_fold_{fold_round}", model)
+                save_trained_model(f"./models/{args.saved_model}", args.saved_model + f"_fold_{fold_round}", model)
                 log_file.info(f"{args.saved_model}_fold_{fold_round} model saved")
                 eval_acc_stack.append(eval_acc)
         else:
             if loss_stack[-1] < best_loss:
                 best_loss = loss_stack[-1]
                 log_file.info(f"New Best loss: {best_loss}, old best loss: {loss_stack[-1]}")
-                save_trained_model(f"./models/{args.saved_model}", args.saved_model+f"_fold_{fold_round}", model)
+                save_trained_model(f"./models/{args.saved_model}", args.saved_model + f"_fold_{fold_round}", model)
                 log_file.info(f"{args.saved_model}_fold_{fold_round} model saved")
                 loss_stack = []
     # Test and record the results
     log_file.info(f"*****fold_round:{fold_round} Running Running test *****")
-    model.module.load_state_dict(torch.load(f"./models/{args.saved_model}/"+args.saved_model+f"_fold_{fold_round}"+".pth")) # , map_location=torch.device(f"cuda:{args.cuda_num-1}"
+    model.module.load_state_dict(torch.load(
+        f"./models/{args.saved_model}/" + args.saved_model + f"_fold_{fold_round}" + ".pth"))  # , map_location=torch.device(f"cuda:{args.cuda_num-1}"
     test_data = read_jsonl(f"./processed_data/{args.dataset}/dev_all.json")
-    rel_id2label = {v:k for k,v in rel_label2id.items()}
+    rel_id2label = {v: k for k, v in rel_label2id.items()}
     n_pred = 0
     n_gold = 0
     n_correct = 0
@@ -382,13 +393,16 @@ for fold_round in range(10):
     count_rel = 0
     total_rel = 0
     for i in tqdm(range(len(test_data))):
-        dic = {"doc_key": test_data[i]["doc_key"], "tokens": test_data[i]["tokens"],"entities": test_data[i]["entities"],"relations": test_data[i]["relations"]}
-        ent_start2end = {i["start"]:i["end"] for i in dic["entities"]}
+        dic = {"doc_key": test_data[i]["doc_key"], "tokens": test_data[i]["tokens"],
+               "entities": test_data[i]["entities"], "relations": test_data[i]["relations"]}
+        ent_start2end = {i["start"]: i["end"] for i in dic["entities"]}
         dic["ground_truth"] = []
         for j in dic["relations"]:
             if j["label"] == "no_relation":
                 continue
-            dic["ground_truth"].append({"subj": " ".join(dic["tokens"][j["subj"]:ent_start2end[j["subj"]]+1]), "obj": " ".join(dic["tokens"][j["obj"]:ent_start2end[j["obj"]]+1]), "label": j["label"]})
+            dic["ground_truth"].append({"subj": " ".join(dic["tokens"][j["subj"]:ent_start2end[j["subj"]] + 1]),
+                                        "obj": " ".join(dic["tokens"][j["obj"]:ent_start2end[j["obj"]] + 1]),
+                                        "label": j["label"]})
         dic["predicted"] = []
         dic["error_list"] = []
         data_list = test_data[i]["train_data"]
@@ -411,32 +425,40 @@ for fold_round in range(10):
                 input_ids = out["input_ids"]
                 attention_mask = out["attention_mask"]
                 token_type_ids = out["token_type_ids"]
-                input_ids, attention_mask, token_type_ids = input_ids.to(device), attention_mask.to(device), token_type_ids.to(device)
+                input_ids, attention_mask, token_type_ids = input_ids.to(device), attention_mask.to(
+                    device), token_type_ids.to(device)
                 sub_idx, obj_idx = torch.tensor([sub_idx]).to(device), torch.tensor([obj_idx]).to(device)
-                logits = model(input_ids=input_ids, attention_mask=attention_mask, token_type_ids=token_type_ids, sub_idx=sub_idx, obj_idx=obj_idx)
+                logits = model(input_ids=input_ids, attention_mask=attention_mask, token_type_ids=token_type_ids,
+                               sub_idx=sub_idx, obj_idx=obj_idx)
                 pred = int(logits.argmax(dim=1))
                 if rel_id2label[pred] != "no_relation":
                     n_pred += 1
-                    dic["predicted"].append({"subj": " ".join(data_dic["typed_tokens"][data_dic["s_start"]+1:data_dic["s_end"]]), "obj": " ".join(data_dic["typed_tokens"][data_dic["o_start"]+1:data_dic["o_end"]]), "label": rel_id2label[pred]})
+                    dic["predicted"].append(
+                        {"subj": " ".join(data_dic["typed_tokens"][data_dic["s_start"] + 1:data_dic["s_end"]]),
+                         "obj": " ".join(data_dic["typed_tokens"][data_dic["o_start"] + 1:data_dic["o_end"]]),
+                         "label": rel_id2label[pred]})
                 label = rel_label2id[data_dic["rel"]]
                 if rel_id2label[label] != "no_relation":
                     n_gold += 1
-                    if label == pred:count_rel += 1
+                    if label == pred: count_rel += 1
                     total_rel += 1
                 if label == pred:
                     count += 1
                 else:
-                    dic["error_list"].append({"subj": " ".join(data_dic["typed_tokens"][data_dic["s_start"]+1:data_dic["s_end"]]), "obj": " ".join(data_dic["typed_tokens"][data_dic["o_start"]+1:data_dic["o_end"]]), "label": data_dic["rel"], "predict": rel_id2label[pred]})
+                    dic["error_list"].append(
+                        {"subj": " ".join(data_dic["typed_tokens"][data_dic["s_start"] + 1:data_dic["s_end"]]),
+                         "obj": " ".join(data_dic["typed_tokens"][data_dic["o_start"] + 1:data_dic["o_end"]]),
+                         "label": data_dic["rel"], "predict": rel_id2label[pred]})
                 if (rel_id2label[pred] != "no_relation") and (rel_id2label[label] != "no_relation") and (pred == label):
                     n_correct += 1
                 total += 1
         dic.pop("entities")
         dic.pop("relations")
-        if not os.path.exists(f"./results/{args.dataset}"):os.makedirs(f"./results/{args.dataset}",exist_ok=True)
-        with open(f"./results/{args.dataset}/{args.result_file_name}_fold{fold_round}.json","a") as f:
-                f.write(str(dic)+"\n")
-    prec = n_correct/n_pred
-    recall = n_correct/n_gold
-    f1 = 2*prec*recall / (prec + recall)
-    log_file.info(f"*****fold_round:{fold_round}, test_Accuracy_precise: {count/total}, test_Accuracy_rel: {count_rel/total_rel}, precision: {prec}, recall : {recall}, f1: {f1}*****")
-
+        if not os.path.exists(f"./results/{args.dataset}"): os.makedirs(f"./results/{args.dataset}", exist_ok=True)
+        with open(f"./results/{args.dataset}/{args.result_file_name}_fold{fold_round}.json", "a") as f:
+            f.write(json.dumps(dic) + "\n")
+    prec = n_correct / n_pred
+    recall = n_correct / n_gold
+    f1 = 2 * prec * recall / (prec + recall)
+    log_file.info(
+        f"*****fold_round:{fold_round}, test_Accuracy_precise: {count / total}, test_Accuracy_rel: {count_rel / total_rel}, precision: {prec}, recall : {recall}, f1: {f1}*****")
